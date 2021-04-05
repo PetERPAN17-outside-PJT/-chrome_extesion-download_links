@@ -7,7 +7,6 @@
 
 var checkAndChangeFilename = function (filename) {
     var pattern = /[\{\}\/?,;:|*~`!^\+<>@\#$%&\\\=\'\"]/gi;
-    console.log(pattern.test(filename));
     if (pattern.test(filename)) {
         // '-', '_', '(', ')', '[', ']', '.'
         filename = filename.replace(/[`~!@#$%^&*|\\\'\";:\/?]/gi, "-");
@@ -17,7 +16,7 @@ var checkAndChangeFilename = function (filename) {
 
 var datalist = [].slice.apply(document.getElementsByTagName('a'));
 datalist = datalist.map(function (element) {
-    // console.log(element);
+
     // Return an anchor's href attribute, stripping any URL fragment (hash '#').
     // If the html specifies a relative path, chrome converts it to an absolute
     // URL.
@@ -33,7 +32,6 @@ datalist = datalist.map(function (element) {
         href: href,
         filename: checkAndChangeFilename(filename)
     };
-    console.log(datalist);
     return datalist;
 });
 
