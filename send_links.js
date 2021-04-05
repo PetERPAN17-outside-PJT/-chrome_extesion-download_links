@@ -5,6 +5,16 @@
 // Send back to the popup a sorted deduped list of valid link URLs on this page.
 // The popup injects this script into all frames in the active tab.
 
+var checkAndChangeFilename = function (filename) {
+    var pattern = /[\{\}\/?,;:|*~`!^\+<>@\#$%&\\\=\'\"]/gi;
+    console.log(pattern.test(filename));
+    if (pattern.test(filename)) {
+        // '-', '_', '(', ')', '[', ']', '.'
+        filename = filename.replace(/[`~!@#$%^&*|\\\'\";:\/?]/gi, "-");
+    }
+    return filename;
+}
+
 var datalist = [].slice.apply(document.getElementsByTagName('a'));
 datalist = datalist.map(function (element) {
     // console.log(element);
@@ -21,8 +31,9 @@ datalist = datalist.map(function (element) {
     }
     datalist = {
         href: href,
-        filename: filename
+        filename: checkAndChangeFilename(filename)
     };
+    console.log(datalist);
     return datalist;
 });
 
